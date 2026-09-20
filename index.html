@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Error Detection Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">🧠 <span>MemoryGuard</span></div>
+    <p class="subtitle">Memory Error Detection</p>
+    <button class="nav active" data-page="dashboard">📊 Dashboard</button>
+    <button class="nav" data-page="simulator">⚙️ Simulator</button>
+    <button class="nav" data-page="memory">💾 Memory Map</button>
+    <button class="nav" data-page="logs">🧾 Error Logs</button>
+    <button class="nav" data-page="about">ℹ️ About</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Memory Error Detection Dashboard</h1>
+        <p>Digital system simulation using even-parity error detection</p>
+      </div>
+      <span class="live">● SYSTEM ONLINE</span>
+    </header>
+
+    <section id="dashboard" class="page active">
+      <div class="cards">
+        <div class="card"><span>Total Locations</span><b id="totalLocations">16</b></div>
+        <div class="card"><span>Total Operations</span><b id="totalOps">0</b></div>
+        <div class="card danger"><span>Errors Detected</span><b id="errorsDetected">0</b></div>
+        <div class="card success"><span>Error-Free</span><b id="errorFree">0</b></div>
+        <div class="card"><span>Detection Rate</span><b id="detectionRate">100%</b></div>
+      </div>
+
+      <div class="grid2">
+        <div class="panel">
+          <div class="panel-title"><h2>System Status</h2><span class="badge ok" id="systemStatus">NORMAL</span></div>
+          <div class="progress"><div id="progressBar"></div></div>
+          <p class="muted">Error rate: <strong id="errorRate">0%</strong></p>
+          <canvas id="chart" width="700" height="260"></canvas>
+        </div>
+        <div class="panel">
+          <h2>Quick Test</h2>
+          <label>Binary data</label>
+          <input id="quickData" maxlength="8" value="1011001">
+          <button class="primary" onclick="runQuickTest()">Check Parity</button>
+          <div id="quickResult" class="result">Enter binary data and check it.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulator" class="page">
+      <div class="panel">
+        <h2>Memory Error Simulator</h2>
+        <div class="formgrid">
+          <div><label>Memory Address</label><input id="address" value="0001" maxlength="4"></div>
+          <div><label>Binary Data</label><input id="dataInput" value="1011001" maxlength="8"></div>
+          <div><label>Error Type</label>
+            <select id="errorType">
+              <option value="none">No Error</option>
+              <option value="single">Single-bit Error</option>
+              <option value="multiple">Multiple-bit Error</option>
+              <option value="random">Random Error</option>
+            </select>
+          </div>
+          <div><label>Action</label><button class="primary" onclick="simulate()">Run Simulation</button></div>
+        </div>
+        <div id="simulationResult" class="simulation"></div>
+      </div>
+      <div class="panel">
+        <h2>How Detection Works</h2>
+        <div class="flow">
+          <span>Original Data</span><i>→</i><span>Generate Parity</span><i>→</i>
+          <span>Store Data</span><i>→</i><span>Error Injection</span><i>→</i>
+          <span>Recalculate</span><i>→</i><strong>Error / OK</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="memory" class="page">
+      <div class="panel">
+        <div class="panel-title"><h2>Memory Map</h2><button class="secondary" onclick="resetAll()">Reset Memory</button></div>
+        <div class="tablewrap">
+        <table><thead><tr><th>Address</th><th>Data</th><th>Parity</th><th>Status</th><th>Last Operation</th></tr></thead>
+        <tbody id="memoryBody"></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <section id="logs" class="page">
+      <div class="panel">
+        <div class="panel-title"><h2>Error Logs</h2><button class="secondary" onclick="clearLogs()">Clear Logs</button></div>
+        <div class="tablewrap">
+        <table><thead><tr><th>ID</th><th>Address</th><th>Original</th><th>Corrupted</th><th>Type</th><th>Detection</th><th>Time</th></tr></thead>
+        <tbody id="logBody"></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="page">
+      <div class="panel">
+        <h2>About the Project</h2>
+        <p><strong>Memory Error Detection Dashboard</strong> is an educational simulation for demonstrating memory reliability and parity-based error detection.</p>
+        <div class="aboutgrid">
+          <div><h3>Problem</h3><p>Memory data can become corrupted because of bit errors during storage or transfer.</p></div>
+          <div><h3>Solution</h3><p>The simulator adds a parity bit, optionally corrupts the stored data, and checks the parity during a read operation.</p></div>
+          <div><h3>Digital Concept</h3><p>Even parity: the total number of 1s including the parity bit should be even.</p></div>
+          <div><h3>Technology</h3><p>HTML, CSS and JavaScript with reproducible synthetic memory data.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
